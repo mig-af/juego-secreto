@@ -23,7 +23,7 @@ function verificarIntento(){
     }else{
     
         if(numeroSecreto === numeroUsuario){
-            asignarTextoElemento("p", `acertaste el numero ${numeroSecreto} en ${(intentos === 1)? "una vez":"veces"}`);
+            asignarTextoElemento("p", `acertaste el numero ${numeroSecreto} en ${(intentos === 1)? "una vez":`${intentos }veces`}`);
             document.getElementById("reiniciar").removeAttribute("disabled");
         }
         else{
