@@ -1,6 +1,7 @@
 
 let numeroSecreto = 0;
-let intentos = 1;
+let intentos = 0;
+let numeroMaximoDeIntentos = 3;
 let listaNumerosSorteados = [];
 let numeroMaximo = 10;
 
@@ -17,16 +18,19 @@ function verificarIntento(){
 
 
     //console.log(numeroSecreto);
-    if(intentos == 3){
-        asignarTextoElemento("p", "Usaste tres intentos");
-        document.getElementById("reiniciar").disabled=false;
-    }else{
     
+    
+        
         if(numeroSecreto === numeroUsuario){
-            asignarTextoElemento("p", `acertaste el numero ${numeroSecreto} en ${(intentos === 1)? "una vez":`${intentos }veces`}`);
+            asignarTextoElemento("p", `Ganaste! acertaste el numero ${numeroSecreto} en ${(intentos === 1)? "un intento":`${intentos } intentos`}`);
             document.getElementById("reiniciar").removeAttribute("disabled");
-        }
-        else{
+            document.getElementById("intentar").setAttribute("disabled", "true");
+        }else if(intentos == numeroMaximoDeIntentos){
+            asignarTextoElemento("p", `Ups! Ya usaste ${intentos} intentos`);
+            document.getElementById("reiniciar").disabled=false;
+            document.getElementById("intentar").disabled = true;
+
+        }else{
             
             if(numeroSecreto > numeroUsuario){
                 asignarTextoElemento("p", " El numero es mayor");
@@ -38,7 +42,8 @@ function verificarIntento(){
             intentos ++;
             
         }
-    }
+    
+    
     return;
 }
 function limpiarCaja(){
@@ -65,11 +70,12 @@ function generarNumeroAleatorio() {
       
 }
 function condicionesIniciales(){
-    asignarTextoElemento("h1", "Este es el titulo del juego");
+    asignarTextoElemento("h1", "Numero Secreto");
     asignarTextoElemento("p", `indica el numero del 1-${numeroMaximo}`);
     numeroSecreto = generarNumeroAleatorio();
     intentos = 1;
     document.querySelector("#reiniciar").setAttribute("disabled", "true");
+    document.querySelector("#intentar").removeAttribute("disabled");
 }
 
 function reiniciarJuego(){
